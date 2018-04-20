@@ -145,6 +145,31 @@ START_TEST(test_2d_midpoint)
 }
 END_TEST
 
+START_TEST(test_2d_area_triangle)
+{
+   
+    coord_2d_t a;
+    coord_2d_t b;
+    coord_2d_t c;
+    
+    a.x = 0;
+    a.y = 0;
+    b.x = 0;
+    b.y = 0;
+    c.x = 0;
+    c.y = 0;
+    ck_assert(coord_2d_area_triangle(&a, &b, &c)== 0);
+
+    a.x = -5;
+    a.y = 14;
+    b.x = -5;
+    b.y = 30;
+    c.x = 10;
+    c.y = 25;
+    ck_assert(coord_2d_area_triangle(&a, &b, &c) == 120);
+
+}
+END_TEST
 /* coord_2d Test Suite */
 Suite* coord_2d_suite(void)
 {
@@ -162,10 +187,15 @@ Suite* coord_2d_suite(void)
     TCase* tc_2d_midpoint = tcase_create("coord_2d_midpoint");
     tcase_add_test(tc_2d_midpoint, test_2d_midpoint);
 
+    TCase* tc_2d_area_triangle = tcase_create("coord_2d_area_triangle");
+    tcase_add_test(tc_2d_area_triangle, test_2d_area_triangle);
+
+
     /* Add Cases to Suite */
     suite_add_tcase(s, tc_2d_eq);
     suite_add_tcase(s, tc_2d_dist);
     suite_add_tcase(s, tc_2d_midpoint);
+    suite_add_tcase(s, tc_2d_area_triangle);
 
     /* Return Suite */
     return s;
@@ -183,5 +213,4 @@ int main(void){
     srunner_free(sr);
 
     return (failed ? EXIT_FAILURE : EXIT_SUCCESS);
-
 }
